@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Grid, Paper, Box } from "@mui/material";
+import Calendar from "./components/Calendar";
+import EventsToday from "./components/EventsToday";
+import Schedule from "./components/Schedule";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Box
+      sx={{
+        width: '100vw',
+        height: '100vh',
+        p: 2,
+        bgcolor: '#BBAFAF',
+        boxSizing: 'border-box',
+      }}
+    >
+      <Grid container spacing={2}>
+        <Grid item size={6} sx={{height:'100vh'}} xs={12} md={4}>
+          <Paper sx={{ p: 2 }}>
+            <Schedule />
+          </Paper>
+        </Grid>
+        <Grid container size={6} columnSpacing={2}>
+          <Grid item size={12} xs={12} md={4}>
+            <Paper sx={{ p: 2 }}>
+              <Calendar />
+            </Paper>
+          </Grid>
+          <Grid item size={12} xs={12} md={4}>
+            <Paper sx={{ p: 2 }}>
+              <EventsToday />
+            </Paper>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Box>
+  );
 }
-
-export default App
