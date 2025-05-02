@@ -142,21 +142,21 @@ npx nodemon index.js
 
 ## 📌 Future Improvements
 
-- ✅ Add form validation
-- ✅ Improve responsive design
-- ❌ Authentication (optional future feature)
-- API for search bar and also "options"
+- ✅ Add form validation  
+- ✅ Improve responsive design  
+- ❌ Add authentication (optional)  
+- 🔄 API integration for Search Bar and dropdown options
 
 ---
 
 ## 📸 Screenshots
 
-![alt text](image.png) - create an event
-![alt text](image-1.png) - read an event
-![alt text](image-2.png) - update an event
-![alt text](image-3.png) - delete an event
-![alt text](image-4.png) - calendar view and today's events
-![alt text](image-5.png) - registered events when switched
+- ![Create Event](image.png) – Creating a new event  
+- ![Read Event](image-1.png) – Viewing event details  
+- ![Update Event](image-2.png) – Editing an existing event  
+- ![Delete Event](image-3.png) – Deleting an event  
+- ![Calendar View](image-4.png) – Calendar display with today's highlights  
+- ![Registered Events](image-5.png) – Viewing registered events via toggle
 
 ---
 
