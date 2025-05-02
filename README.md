@@ -122,15 +122,17 @@ CREATE DATABASE IF NOT EXISTS mycalendar;
 USE mycalendar;
 
 CREATE TABLE IF NOT EXISTS events (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  id INT NOT NULL AUTO_INCREMENT,
   title VARCHAR(255) NOT NULL,
-  date DATE NOT NULL,
+  description TEXT,
+  event_date DATE NOT NULL,
   start_time TIME NOT NULL,
   end_time TIME NOT NULL,
+  location VARCHAR(255),
   color VARCHAR(50),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  PRIMARY KEY (id)
 );
-```
+
 
 Run the backend server:
 
