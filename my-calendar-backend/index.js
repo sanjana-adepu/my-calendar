@@ -4,7 +4,7 @@ const mysql = require('mysql2');
 const cors = require('cors');
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:5173' }));
 app.use(express.json());
 
 const db = mysql.createPool({
@@ -50,7 +50,6 @@ app.post('/events/create', (req, res) => {
       return res.status(500).json({ error: err.code, message: err.sqlMessage });
     }
     
-    // Fetch and return the complete created event
     const selectSql = "SELECT * FROM events WHERE id = ?";
     db.query(selectSql, [result.insertId], (err, data) => {
       if (err) return res.status(500).json(err);
@@ -62,7 +61,6 @@ app.post('/events/create', (req, res) => {
 app.put('/events', express.json(), (req, res) => {
   let { id, title, description, event_date, start_time, end_time, location, color } = req.body;
 
-  // Convert ID to a number
   const numericId = parseInt(id, 10);
   if (isNaN(numericId)) {
     return res.status(400).json({ error: 'Invalid event ID' });

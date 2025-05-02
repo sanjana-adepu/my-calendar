@@ -43,7 +43,7 @@ export default function Schedule({ selectedDate }) {
       const response = await axios.get('http://localhost:8081/events');
       if (Array.isArray(response.data)) {
         setSchedule(response.data);
-        setFilteredEvents(filterEventsByDate(response.data, selectedDate || new Date()));
+        setFilteredEvents(filterEventsByDate(response.data, selectedDate));
       } else {
         setSchedule([]);
         setFilteredEvents([]);
@@ -56,14 +56,25 @@ export default function Schedule({ selectedDate }) {
   };
 
   const handleEventUpdated = (updatedEvent) => {
-    setSchedule(prev => {
-      const newSchedule = prev.map(event =>
-        event.id === updatedEvent.id ? updatedEvent : event
-      );
-      setFilteredEvents(filterEventsByDate(newSchedule, selectedDate || new Date()));
-      return newSchedule;
-    });
-  }; 
+    if (!updatedEvent) {
+      // If null, remove the event (deletion case)
+      setSchedule(prev => {
+        const newSchedule = prev.filter(event => event.id !== null); // or however you identify the deleted event
+        setFilteredEvents(filterEventsByDate(newSchedule, selectedDate));
+        return newSchedule;
+      });
+    } else {
+      // Update existing event
+      setSchedule(prev => {
+        const newSchedule = prev.map(event =>
+          event.id === updatedEvent.id ? updatedEvent : event
+        );
+        setFilteredEvents(filterEventsByDate(newSchedule, selectedDate));
+        return newSchedule;
+      });
+    }
+  };
+  
 
   const handleSubmit = async () => {
     try {
@@ -74,7 +85,7 @@ export default function Schedule({ selectedDate }) {
 
       setSchedule(prev => {
         const updated = [...prev, createdEvent];
-        setFilteredEvents(filterEventsByDate(updated, selectedDate || new Date()));
+        setFilteredEvents(filterEventsByDate(updated, selectedDate));
         return updated;
       });
 
@@ -107,7 +118,7 @@ export default function Schedule({ selectedDate }) {
 
   useEffect(() => {
     if (schedule.length > 0) {
-      setFilteredEvents(filterEventsByDate(schedule, selectedDate || new Date()));
+      setFilteredEvents(filterEventsByDate(schedule, selectedDate));
     }
   }, [selectedDate, schedule]);
 

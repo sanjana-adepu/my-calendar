@@ -15,6 +15,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
+import dayjs from "dayjs";
 
 export default function EventDetails({ event, handleClose, onEventUpdated }) {
   const [editMode, setEditMode] = useState(false);
@@ -22,7 +23,10 @@ export default function EventDetails({ event, handleClose, onEventUpdated }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    setEditedEvent({ ...event, event_date: event.event_date?.split("T")[0] || '' });
+    setEditedEvent({ 
+      ...event, 
+      event_date: dayjs(event.event_date?.split("T")[0]).add(1, 'day').format("YYYY-MM-DD") || '' 
+    });
     setEditMode(false);
   }, [event]);
 
