@@ -55,16 +55,14 @@ export default function Schedule({ selectedDate }) {
     }
   };
 
-  const handleEventUpdated = (updatedEvent) => {
-    if (!updatedEvent) {
-      // If null, remove the event (deletion case)
+  const handleEventUpdated = (updatedEvent, deletedId = null) => {
+    if (updatedEvent === null && deletedId !== null) {
       setSchedule(prev => {
-        const newSchedule = prev.filter(event => event.id !== null); // or however you identify the deleted event
+        const newSchedule = prev.filter(event => event.id !== deletedId);
         setFilteredEvents(filterEventsByDate(newSchedule, selectedDate));
         return newSchedule;
       });
-    } else {
-      // Update existing event
+    } else if (updatedEvent) {
       setSchedule(prev => {
         const newSchedule = prev.map(event =>
           event.id === updatedEvent.id ? updatedEvent : event
@@ -73,8 +71,7 @@ export default function Schedule({ selectedDate }) {
         return newSchedule;
       });
     }
-  };
-  
+  };  
 
   const handleSubmit = async () => {
     try {
@@ -133,7 +130,7 @@ export default function Schedule({ selectedDate }) {
             display: "flex",
             alignItems: "center",
             px: 1,
-            bgcolor: index === 2 ? "#f5f5f5" : "transparent",
+            bgcolor: "transparent",
           }}
         >
           <Typography variant="caption" sx={{ width: "60px", color: "#999" }}>

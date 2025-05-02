@@ -44,7 +44,7 @@ export default function EventDetails({ event, handleClose, onEventUpdated }) {
         ...editedEvent,
         event_date: editedEvent.event_date?.split("T")[0] || '',
       });
-      onEventUpdated(updatedEvent);
+      onEventUpdated(updatedEvent,editedEvent.id);
       setEditMode(false);
     } catch (error) {
       console.error('Error updating event:', error);
@@ -60,7 +60,7 @@ export default function EventDetails({ event, handleClose, onEventUpdated }) {
 
     try {
       await axios.delete(`http://localhost:8081/events/${event.id}`);
-      onEventUpdated(null);
+      onEventUpdated(null, event.id);
       handleClose();
     } catch (error) {
       console.error('Error deleting event:', error);
